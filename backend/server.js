@@ -6,10 +6,9 @@
 const path = require("path");
 // import { fileURLToPath } from "url";
 // dotenv.config();
-// import userRouter from "./routes/userRouter.js";
-// import dishesRouter from "./routes/dishesRouter.js";
 const cors = require("cors");
 const dishesRouter = require("./routes/dishesRouter.js");
+const userRouter = require("./routes/userRouter.js");
 
 const express = require("express");
 const { sequelize } = require("./models");
@@ -29,7 +28,7 @@ const PORT = process.env.PORT || 5000;
 // });
 
 app.use(cors());
-// app.use("/api/users", userRouter);
+app.use("/api/users", userRouter);
 app.use("/api/dishes", dishesRouter);
 // app.use("/api/orders", orderRouter);
 
@@ -56,8 +55,8 @@ app.use((err, req, res, next) => {
 
 app.listen(PORT, async () => {
   console.log(`Server up on http://localhost:${PORT}`);
-  // await sequelize.sync({ force: true });
-  await sequelize.authenticate();
+  await sequelize.sync({ alter: true });
+  // await sequelize.authenticate();
   console.log("Database connected!");
 });
 

@@ -34,6 +34,14 @@ const data = {
         "Sting Energy Drink is a carbonated energy drink from PepsiCo International and produced by Rockstar Inc.",
     },
   ],
+  users: [
+    {
+      phone_no: "1010101010",
+      customer_name: "John Doe",
+      email: "john@example.com",
+      password: "hello",
+    },
+  ],
 };
 
 module.exports = data;
