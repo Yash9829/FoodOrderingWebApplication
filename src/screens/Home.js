@@ -6,18 +6,18 @@ import Carousal from '../components/Carousal'
 
 export default function Home() {
   return (
-    <div>
+    <div style={{backgroundColor : 'lightgrey'}}>
       <div>
         <Navbar />
       </div>
       <div>
         <Carousal />
       </div>
-      <div>
+      <div style = {{display : "flex", flexDirection : "row"}}>
         <Card />
         <Card />
       </div>
-      <div>
+      <div style={{backgroundColor : 'white'}}>
         <Footer />
       </div>
     </div>
