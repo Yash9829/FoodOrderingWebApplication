@@ -1,9 +1,10 @@
 const express = require("express");
-const data = require("../data.js");
+// const data = require("../data.js");
 const { Account } = require("../models");
 const bcrypt = require("bcrypt");
 const expressAsyncHandler = require("express-async-handler");
-// import { genrateToken, isAuth } from "../utlis.js";
+// import { generateToken, isAuth } from "../utlis.js";
+const { generateToken, isAuth } = require("../utils.js");
 // import Address from "../models/address.js";
 
 const userRouter = express.Router();
@@ -16,54 +17,54 @@ userRouter.get(
   })
 );
 
-//
-// // post request for signining users
-// userRouter.post(
-//   "/signin",
-//   expressAsyncHandler(async (req, res) => {
-//     const user = await Account.findOne({ email: req.body.email });
-//     if (user) {
-//       if (bcrypt.compareSync(req.body.password, user.password)) {
-//         // if password mateches
-//         res.send({
-//           _id: user._id,
-//           name: user.name,
-//           eamil: user.email,
-//           isAdmin: user.isAdmin,
-//           mobNo: user?.mobNo,
-//           token: genrateToken(user),
-//         });
-//         return;
-//       }
-//     }
-//     res.status(401).send({ message: "Invalid Email or Password" });
-//   })
-// );
-//
-// //post route for signup
-// userRouter.post(
-//   "/signup",
-//   expressAsyncHandler(async (req, res) => {
-//     const user = await Account.findOne({ email: req.body.email });
-//     if (user) {
-//       res.status(401).send({ message: "User already exits" });
-//     } else {
-//       const newUser = Account({
-//         name: req.body.name,
-//         email: req.body.email,
-//         password: bcrypt.hashSync(req.body.password, 10),
-//       });
-//       const user = await newUser.save();
-//       res.send({
-//         _id: user._id,
-//         name: user.name,
-//         eamil: user.email,
-//         isAdmin: user.isAdmin,
-//         token: genrateToken(user),
-//       });
-//     }
-//   })
-// );
+// post request for signining users
+userRouter.post(
+  "/signin",
+  expressAsyncHandler(async (req, res) => {
+    const user = await Account.findOne({ email: req.body.email });
+    if (user) {
+      if (bcrypt.compareSync(req.body.password, user.password)) {
+        // if password mateches
+        res.send({
+          id: user.account_id,
+          name: user.customer_name,
+          email: user.email,
+          // isAdmin: user.isAdmin,
+          phone_no: user.phone_no,
+          token: generateToken(user),
+        });
+        return;
+      }
+    }
+    res.status(401).send({ message: "Invalid Email or Password" });
+  })
+);
+
+//post route for signup
+userRouter.post(
+  "/signup",
+  expressAsyncHandler(async (req, res) => {
+    const user = await Account.findOne({ email: req.body.email });
+    if (user) {
+      res.status(401).send({ message: "User already exits" });
+    } else {
+      const newUser = {
+        customer_name: req.body.name,
+        email: req.body.email,
+        phone_no: req.body.phone_no,
+        password: bcrypt.hashSync(req.body.password, 10),
+      };
+      const user = await Account.create(newUser);
+      res.send({
+        _id: user.account_id,
+        name: user.customer_name,
+        email: user.email,
+        phone_no: user.phone_no,
+        token: generateToken(user),
+      });
+    }
+  })
+);
 //
 // //post route for adding address
 //

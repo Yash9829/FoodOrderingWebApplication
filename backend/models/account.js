@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       phone_no: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
         validate: {
           len: {
             args: [10],
@@ -46,7 +46,8 @@ module.exports = (sequelize, DataTypes) => {
       },
       email: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
+        primaryKey: true,
         validate: {
           isEmail: "Not a valid email",
         },
