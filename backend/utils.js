@@ -1,8 +1,8 @@
-import jwt from "jsonwebtoken";
+const jwt = require("jsonwebtoken");
 const generateToken = (user) => {
   return jwt.sign(
     {
-      _id: user._id,
+      _id: user.account_id,
       name: user.customer_name,
       email: user.email,
       phone_no: user.phone_no,

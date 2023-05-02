@@ -9,6 +9,7 @@ const { generateToken, isAuth } = require("../utils.js");
 
 const userRouter = express.Router();
 
+// get request to seed user values
 userRouter.get(
   "/seed",
   expressAsyncHandler(async (req, res) => {
@@ -17,7 +18,7 @@ userRouter.get(
   })
 );
 
-// post request for signining users
+// post request for signin of users
 userRouter.post(
   "/signin",
   expressAsyncHandler(async (req, res) => {
@@ -49,11 +50,12 @@ userRouter.post(
       res.status(401).send({ message: "User already exits" });
     } else {
       const newUser = {
-        customer_name: req.body.name,
+        customer_name: req.body.customer_name,
         email: req.body.email,
         phone_no: req.body.phone_no,
         password: bcrypt.hashSync(req.body.password, 10),
       };
+      // res.send({ newUser });
       const user = await Account.create(newUser);
       res.send({
         _id: user.account_id,
@@ -65,7 +67,7 @@ userRouter.post(
     }
   })
 );
-//
+
 // //post route for adding address
 //
 // userRouter.get(
@@ -125,27 +127,65 @@ userRouter.post(
 //   })
 // );
 //
-// userRouter.put(
-//   "/updateProfile",
-//   isAuth,
-//   expressAsyncHandler(async (req, res) => {
-//     const user = await Account.findById(req.user._id);
-//     if (user) {
-//       user.name = req.body.name;
-//       user.mobNo = req.body.mobNo;
-//       const updatedUser = await user.save();
-//       res.send({
-//         _id: user._id,
-//         name: updatedUser.name,
-//         eamil: updatedUser.email,
-//         isAdmin: updatedUser.isAdmin,
-//         mobNo: updatedUser.mobNo,
-//         token: genrateToken(updatedUser),
-//       });
-//     } else {
-//       res.status(404).send({ message: "User not found" });
-//     }
-//   })
-// );
+
+userRouter.delete(
+  "/delete-account",
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const user = await Account.findOne({ where: { account_id: req.body._id } });
+    if (user) {
+      await user.destroy();
+      res.send({ message: "User account deleted" });
+    } else {
+      res.status(404).send({ message: "User not found" });
+    }
+  })
+);
+
+userRouter.put(
+  "/update-password",
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const user = await Account.findOne({ where: { account_id: req.body._id } });
+    if (user) {
+      if (bcrypt.compareSync(req.body.password, user.password)) {
+        res
+          .status(401)
+          .send({ message: "Same password given. Password unchanged" });
+        return;
+      }
+      user.password = bcrypt.hashSync(req.body.password, 10);
+      const updatedUser = await user.save();
+      res.send({
+        message: "Changed password",
+        token: generateToken(updatedUser),
+      });
+    } else {
+      res.status(401).send({ message: "User not found" });
+    }
+  })
+);
+
+userRouter.put(
+  "/update-account",
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const user = await Account.findOne({ where: { account_id: req.body._id } });
+    if (user) {
+      user.customer_name = req.body.customer_name;
+      user.phone_no = req.body.phone_no;
+      const updatedUser = await user.save();
+      res.send({
+        _id: updatedUser.account_id,
+        name: updatedUser.customer_name,
+        email: updatedUser.email,
+        phone_no: updatedUser.phone_no,
+        token: generateToken(updatedUser),
+      });
+    } else {
+      res.status(404).send({ message: "User not found" });
+    }
+  })
+);
 
 module.exports = userRouter;

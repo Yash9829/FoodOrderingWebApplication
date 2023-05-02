@@ -49,18 +49,12 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         primaryKey: true,
         validate: {
-          isEmail: "Not a valid email",
+          isEmail: { msg: "Not a valid email" },
         },
       },
       password: {
         type: DataTypes.STRING,
-        allowNULL: true,
-        validate: {
-          len: {
-            args: [8, 50],
-            msg: "Password should be between 8 and 50 characters long",
-          },
-        },
+        allowNULL: false,
       },
     },
     {
