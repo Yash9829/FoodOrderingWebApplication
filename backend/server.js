@@ -3,6 +3,7 @@
 // const dotenv = require("dotenv");
 // import orderRouter from "./routes/OrderRouter.js";
 // import path, { dirname } from "path";
+const path = require("path");
 // import { fileURLToPath } from "url";
 // dotenv.config();
 // import userRouter from "./routes/userRouter.js";
@@ -34,22 +35,16 @@ app.use("/api/dishes", dishesRouter);
 
 //Serve static assests if in production
 
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = dirname(__filename);
-// app.use(express.static(path.join(__dirname, '../frontend/build')))
-// if(process.env.NODE_ENV==='production'){
-//     //set a static folder
-//     app.get('*', (req, res) =>{
-//       res.sendFile(
-//         path.resolve(__dirname, '../frontend', 'build', 'index.html')
-//       )
-//      } );
-// } else {
-//   app.get('/', (req, res) => {
-//     res.send('API is running....');
-//   });
-// }
+//----------------------------------------------------
+app.use(express.static(path.join(__dirname, "../build")));
+if (process.env.NODE_ENV === "production") {
+  //set a static folder
+  app.get("/", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "..", "build", "index.html"));
+  });
+}
 
+// -----------------------------------------------------
 app.use((err, req, res, next) => {
   res.status(500).send({ message: err.message });
   console.log(err);
@@ -61,8 +56,8 @@ app.use((err, req, res, next) => {
 
 app.listen(PORT, async () => {
   console.log(`Server up on http://localhost:${PORT}`);
-  await sequelize.sync({ force: true });
-  // await sequelize.authenticate();
+  // await sequelize.sync({ force: true });
+  await sequelize.authenticate();
   console.log("Database connected!");
 });
 
