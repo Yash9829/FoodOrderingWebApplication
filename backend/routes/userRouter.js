@@ -4,7 +4,7 @@ const { Account } = require("../models");
 const bcrypt = require("bcrypt");
 const expressAsyncHandler = require("express-async-handler");
 // import { generateToken, isAuth } from "../utlis.js";
-const { generateToken, isAuth } = require("../utils.js");
+const { generateToken, isAuth } = require("../utils/utils.js");
 // import Address from "../models/address.js";
 
 const userRouter = express.Router();

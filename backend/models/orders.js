@@ -8,9 +8,13 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate({ Account }) {
+    static associate({ Account, DishesOrdered }) {
       // define association here
-      this.belongsTo(Account, { foreignKey: "account_id" });
+      this.belongsTo(Account, {
+        targetKey: "account_id",
+        foreignKey: "account_id",
+      });
+      this.hasMany(DishesOrdered, { foreignKey: "order_id" });
     }
   }
   Orders.init(
@@ -25,7 +29,8 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-          msg: "Address should not be empty",
+          notEmpty: "Address should not be empty",
+          notNull: "Address should not be null",
         },
       },
       order_status: {

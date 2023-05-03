@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate({ Orders }) {
       // define association here
-      this.hasMany(Orders, { foreignKey: "order_id" });
+      // this.hasMany(Orders, { foreignKey: "order_id" });
     }
     // static associate() {
     //   // define association here
@@ -20,10 +20,11 @@ module.exports = (sequelize, DataTypes) => {
   Account.init(
     {
       account_id: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
+        type: DataTypes.INTEGER,
+        // defaultValue: DataTypes.UUIDV4,
+        autoIncrement: true,
+        primaryKey: true,
         allowNull: false,
-        unique: true,
       },
       phone_no: {
         type: DataTypes.STRING,
@@ -47,7 +48,7 @@ module.exports = (sequelize, DataTypes) => {
       email: {
         type: DataTypes.STRING,
         allowNull: false,
-        primaryKey: true,
+        unique: true,
         validate: {
           isEmail: { msg: "Not a valid email" },
         },
@@ -61,6 +62,7 @@ module.exports = (sequelize, DataTypes) => {
       sequelize,
       tableName: "account",
       modelName: "Account",
+      indexes: [{ unique: true, fields: ["account_id"] }],
     }
   );
   return Account;
