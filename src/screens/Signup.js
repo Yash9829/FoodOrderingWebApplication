@@ -1,6 +1,6 @@
 import { React, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Signup() {
   const [credentials, setCredentials] = useState({
@@ -9,15 +9,22 @@ export default function Signup() {
     phone_no: " ",
     password: "",
   });
-  const handleSubmit = async (e) => {
+
+  const onChange = (event) => {
+    setCredentials({ ...credentials, [event.target.name]: event.target.value });
+    console.log("hi");
+  };
+
+  const navigate = useNavigate();
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const url = "http://10.10.75.187:5000/api/users/signup";
+    const url = "http://localhost:5000/api/users/signup";
     const data = {
-      name: credentials.name,
+      customer_name: credentials.name,
       email: credentials.email,
       password: credentials.password,
     };
-
+    console.log(data);
     axios
       .post(url, data, {
         headers: {
@@ -27,11 +34,11 @@ export default function Signup() {
       })
       .then(({ data }) => {
         console.log(data);
+        navigate("/");
+      })
+      .catch((err) => {
+        console.log(err);
       });
-  };
-
-  const onChange = (event) => {
-    setCredentials({ ...credentials, [event.target.name]: event.target.value });
   };
 
   return (
@@ -45,7 +52,7 @@ export default function Signup() {
           paddingTop: "50px",
           border: "2px solid black",
           boxSizing: "border-box",
-          height: "500px",
+          height: "650px",
           width: "500px",
           marginTop: "50px",
           backgroundColor: "white",
@@ -58,7 +65,7 @@ export default function Signup() {
         </h4>
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
-            <label for="exampleInputName1" className="form-label">
+            <label htmlFor="exampleInputName1" className="form-label">
               Enter new user name
             </label>
             <input
@@ -72,7 +79,7 @@ export default function Signup() {
             />
           </div>
           <div className="mb-3">
-            <label for="exampleInputEmail1" className="form-label">
+            <label htmlFor="exampleInputEmail1" className="form-label">
               Email address
             </label>
             <input
@@ -89,7 +96,7 @@ export default function Signup() {
             </div>
           </div>
           <div className="mb-3">
-            <label for="exampleInputPassword1" className="form-label">
+            <label htmlFor="exampleInputPassword1" className="form-label">
               Password
             </label>
             <input
@@ -101,11 +108,10 @@ export default function Signup() {
               onChange={onChange}
             />
           </div>
-          <Link to="/">
-            <button type="submit" className="btn btn-primary">
-              SignUp
-            </button>
-          </Link>
+          <button type="submit" className="btn btn-primary">
+            SignUp
+          </button>
+          <Link to="/"></Link>
         </form>
       </div>
     </div>
