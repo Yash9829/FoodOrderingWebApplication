@@ -49,11 +49,17 @@ userRouter.post(
     if (user) {
       res.status(401).send({ message: "User already exits" });
     } else {
+      const password = req.body.password;
+      if (password.length < 8) {
+        res
+          .status(401)
+          .send({ message: "Password should have minimum 8 characters" });
+      }
       const newUser = {
         customer_name: req.body.customer_name,
         email: req.body.email,
         phone_no: req.body.phone_no,
-        password: bcrypt.hashSync(req.body.password, 10),
+        password: bcrypt.hashSync(password, 10),
       };
       // res.send({ newUser });
       const user = await Account.create(newUser);

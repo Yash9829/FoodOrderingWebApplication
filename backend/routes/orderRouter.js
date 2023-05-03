@@ -44,7 +44,7 @@ orderRouter.get(
 
 orderRouter.get(
   "/admin-orders",
-  // isAuth,
+  isAuth,
   expressAsyncHandler(async (req, res) => {
     // const orders = await Orders.findAll({
     //   order: [["order_time", "DESC"]],
@@ -71,7 +71,7 @@ orderRouter.get(
 
 orderRouter.post(
   "/",
-  // isAuth,
+  isAuth,
   expressAsyncHandler(async (req, res) => {
     const { delivery_address, _id, notes, orderItems } = req.body;
 
@@ -88,27 +88,26 @@ orderRouter.post(
     try {
       const order = await Orders.create(newOrder);
 
-      try {
-        orderItems.forEach(async (item) => {
-          const { dish_id, quantity } = item;
+      for (const item of orderItems) {
+        const { dish_id, quantity } = item;
+        const dishPresent = await Dishes.findOne({
+          where: { dish_id: dish_id },
+        });
+        if (dishPresent) {
           const newDish = {
             order_id: order.order_id,
             dish_id: dish_id,
             quantity: quantity,
           };
           await DishesOrdered.create(newDish);
-        });
-        const updatedOrder = res
-          .status(201)
-          .send({ message: "Order Placed !", order: order });
-      } catch (err) {
-        // const items = await DishesOrdered.findAll({
-        //   where: { order_id: order.order_id },
-        // });
-        // items.destroy();
-        // order.destroy();
-        res.status(401).send({ message: "Invalid item information" });
+        } else {
+          console.log("dish not present. Connot add order");
+          DishesOrdered.destroy({ where: { order_id: order_id } });
+          order.destroy();
+          throw "Invalid dishes";
+        }
       }
+      res.status(201).send({ message: "Order Placed !", order: order });
     } catch (err) {
       res.status(401).send({ message: "Invalid order details" });
     }

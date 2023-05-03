@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const jwtSecret = "Thisismysecretpasswordthatyoudonotknow";
 const generateToken = (user) => {
   return jwt.sign(
     {
@@ -7,7 +8,7 @@ const generateToken = (user) => {
       email: user.email,
       phone_no: user.phone_no,
     },
-    "Thisismysecretpasswordthatyoudonotknow",
+    jwtSecret,
     {
       expiresIn: "10d",
     }
@@ -19,18 +20,14 @@ const isAuth = (req, res, next) => {
 
   if (authorization) {
     const token = authorization.slice(7, authorization.length); //bearer token value
-    jwt.verify(
-      token,
-      "Thisismysecretpasswordthatyoudonotknow",
-      (err, decode) => {
-        if (err) {
-          res.status(401).send({ message: err.message });
-        } else {
-          req.user = decode;
-          next();
-        }
+    jwt.verify(token, jwtSecret, (err, decode) => {
+      if (err) {
+        res.status(401).send({ message: err.message });
+      } else {
+        req.user = decode;
+        next();
       }
-    );
+    });
   } else {
     res.status(401).send({ message: "No token" });
   }
