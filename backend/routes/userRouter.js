@@ -22,7 +22,7 @@ userRouter.get(
 userRouter.post(
   "/signin",
   expressAsyncHandler(async (req, res) => {
-    const user = await Account.findOne({ email: req.body.email });
+    const user = await Account.findOne({ where: { email: req.body.email } });
     if (user) {
       if (bcrypt.compareSync(req.body.password, user.password)) {
         // if password mateches
@@ -45,7 +45,7 @@ userRouter.post(
 userRouter.post(
   "/signup",
   expressAsyncHandler(async (req, res) => {
-    const user = await Account.findOne({ email: req.body.email });
+    const user = await Account.findOne({ { where: { email: req.body.email } });
     if (user) {
       res.status(401).send({ message: "User already exits" });
     } else {
