@@ -8,7 +8,11 @@ const  reducer = (state, action) => {
    switch(action.type) {
 
         case "Add" :
-            return [...state, {id : action.id, quantity : action.quantity, price : action.price}];
+            return [...state, {id : action.id, name : action.name, quantity : action.quantity, price : action.price}];
+        case "Delete" :
+            let modArray = [...state];
+            modArray.splice(action.index, 1);
+            return modArray;
         default :
             console.log("Error :(");
 

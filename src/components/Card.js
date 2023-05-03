@@ -13,8 +13,8 @@ export default function Card(props) {
   let dispatch = useDispatchOrder();
   const handleAddOrders = async () => {
 
-    await dispatch({ type: "Add", id: props.id, quantity : qty, price : props.price });
-    console.log(data);
+    await dispatch({ type: "Add", id: props.id, quantity : qty, price : props.price, name : props.dishName });
+    // console.log(data);
 
   }
  
