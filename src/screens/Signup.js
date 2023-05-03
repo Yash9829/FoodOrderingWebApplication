@@ -1,6 +1,6 @@
 import { React, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Signup() {
   const [credentials, setCredentials] = useState({
@@ -15,6 +15,7 @@ export default function Signup() {
     console.log("hi");
   };
 
+  const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
     const url = "http://localhost:5000/api/users/signup";
@@ -23,6 +24,7 @@ export default function Signup() {
       email: credentials.email,
       password: credentials.password,
     };
+    console.log(data);
     axios
       .post(url, data, {
         headers: {
@@ -32,6 +34,7 @@ export default function Signup() {
       })
       .then(({ data }) => {
         console.log(data);
+        navigate("/");
       })
       .catch((err) => {
         console.log(err);
@@ -108,6 +111,7 @@ export default function Signup() {
           <button type="submit" className="btn btn-primary">
             SignUp
           </button>
+          <Link to="/"></Link>
         </form>
       </div>
     </div>
