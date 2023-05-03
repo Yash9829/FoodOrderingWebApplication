@@ -6,19 +6,19 @@ export default function Carousal() {
       <div id="carouselExampleControls" className="carousel slide" data-bs-ride="carousel" style = {{objectFit : "cover !important"}}>
         <div className="carousel-inner" id = "carousal">
           <div className="carousel-caption d-none d-md-block" style={{ zIndex: "10" }}>
-            <form className="d-flex">
+            {/* <form className="d-flex">
               <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
               <button className="btn btn-outline-success" type="submit">Search</button>
-            </form>
+            </form> */}
           </div>
-          <div className="carousel-item active">
-            <img src="https://source.unsplash.com/random/900x700/?Burger" className="d-block w-100" alt="..." style = {{filter : "brightness {30%}"}} />
-          </div>
-          <div className="carousel-item">
-            <img src="https://source.unsplash.com/random/900x700/?Pizza" className="d-block w-100" alt="..." />
+          <div className="carousel-item active" style = {{objectFit : 'fill'}}>
+            <img src="https://img.freepik.com/premium-photo/chicken-dhum-biriyani-using-jeera-rice-spices-arranged-earthen-ware_527904-513.jpg" className="d-block w-100" alt="..." style = {{objectFit : 'fill'}} />
           </div>
           <div className="carousel-item">
-            <img src="https://source.unsplash.com/random/900x700/?Barbeque" className="d-block w-100" alt="..." />
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIH7Fv-9r0NQn2S8tLW7UHK0LTX6WnB6o8UIJfRtog_A&s" className="d-block w-100" alt="..." />
+          </div>
+          <div className="carousel-item">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIH7Fv-9r0NQn2S8tLW7UHK0LTX6WnB6o8UIJfRtog_A&s" className="d-block w-100" alt="..." />
           </div>
         </div>
         <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">

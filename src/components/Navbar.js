@@ -2,18 +2,19 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import Badge from 'react-bootstrap/Badge'
-
+import { useOrder } from './ContextReducer';
 function Navbar() {
   var [txtColor1, setColor1] = useState('black');
   var [txtColor2, setColor2] = useState('black');
   var [txtColor3, setColor3] = useState('black');
   var [txtColor4, setColor4] = useState('grey');
   var [isLoggedIn, setLogin] = useState(true);
+  let data = useOrder();
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-dark">
         <div className="container-fluid">
-          <Link className="navbar-brand " to="/" style={{ color: "black" }}>MyFoods</Link>
+          <Link className="navbar-brand " to="/" style={{ color: "black" }}>MYAB's</Link>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
@@ -32,7 +33,7 @@ function Navbar() {
                 </div> : <div className="nav-item" style={{ display: 'flex', alignItems: 'center' }}>
                   <div style={{ display: 'flex', textAlign: 'center', marginRight: '20px' }}>
                     <Link onMouseEnter={() => setColor3(txtColor1 = 'red')} onMouseLeave={() => setColor3(txtColor3 = 'black')} className="nav-link" to="/MyOrders" style={{ color: `${txtColor3}` }}>MyOrders</Link>
-                    <Badge pill bg='danger' style={{ marginTop: '10px', marginBottom: '10px' }}>2</Badge>
+                    <Badge pill bg='danger' style={{ marginTop: '10px', marginBottom: '10px' }}>{data.length}</Badge>
                   </div>
                   <div>
                     <button style={{ border: '0px', backgroundColor: `${txtColor4}` }} onMouseEnter={() => setColor4(txtColor4 = 'red')} onMouseLeave={() => setColor4(txtColor4 = 'grey')} className="nav-link" to="/login" >Logout</button>
