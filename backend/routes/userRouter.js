@@ -45,7 +45,7 @@ userRouter.post(
 userRouter.post(
   "/signup",
   expressAsyncHandler(async (req, res) => {
-    const user = await Account.findOne({ { where: { email: req.body.email } });
+    const user = await Account.findOne({ where: { email: req.body.email } });
     if (user) {
       res.status(401).send({ message: "User already exits" });
     } else {
