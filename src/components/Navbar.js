@@ -13,7 +13,6 @@ function Navbar() {
     if (localStorage.getItem("accessToken")) return true;
     else return false;
   };
-  console.log("location", isLoggedIn);
   const navigate = useNavigate();
   let data = useOrder();
   const handleLogout = () => {
@@ -31,6 +30,7 @@ function Navbar() {
             className="navbar-toggler"
             type="button"
             data-bs-toggle="collapse"
+            gg
             data-bs-target="#navbarNav"
             aria-controls="navbarNav"
             aria-expanded="false"
@@ -83,10 +83,10 @@ function Navbar() {
                       onMouseEnter={() => setColor3((txtColor1 = "red"))}
                       onMouseLeave={() => setColor3((txtColor3 = "black"))}
                       className="nav-link"
-                      to="/MyOrders"
+                      to="/cart"
                       style={{ color: `${txtColor3}` }}
                     >
-                      MyOrders
+                      MyCart
                     </Link>
                     <Badge
                       pill
@@ -95,6 +95,25 @@ function Navbar() {
                     >
                       {data.length}
                     </Badge>
+                  </div>
+                  <div>
+                    <div
+                      style={{
+                        display: "flex",
+                        textAlign: "center",
+                        marginRight: "20px",
+                      }}
+                    >
+                      <Link
+                        onMouseEnter={() => setColor1((txtColor1 = "red"))}
+                        onMouseLeave={() => setColor1((txtColor3 = "black"))}
+                        className="nav-link"
+                        to="/myOrder"
+                        style={{ color: `${txtColor1}` }}
+                      >
+                        MyOrder
+                      </Link>
+                    </div>
                   </div>
                   <div>
                     <button

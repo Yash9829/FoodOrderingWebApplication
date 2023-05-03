@@ -26,7 +26,7 @@ orderRouter.get(
   isAuth,
   expressAsyncHandler(async (req, res) => {
     const orders = await Orders.findAll({
-      where: { account_id: req.body._id },
+      where: { account_id: req.query._id },
       include: [
         {
           model: DishesOrdered,
@@ -88,28 +88,32 @@ orderRouter.post(
     try {
       const order = await Orders.create(newOrder);
 
-      for (const item of orderItems) {
-        const { dish_id, quantity } = item;
-        const dishPresent = await Dishes.findOne({
-          where: { dish_id: dish_id },
-        });
-        if (dishPresent) {
-          const newDish = {
-            order_id: order.order_id,
-            dish_id: dish_id,
-            quantity: quantity,
-          };
-          await DishesOrdered.create(newDish);
-        } else {
-          console.log("dish not present. Connot add order");
-          DishesOrdered.destroy({ where: { order_id: order_id } });
-          order.destroy();
-          throw "Invalid dishes";
+      try {
+        for (const item of orderItems) {
+          const { dish_id, quantity } = item;
+          const dishPresent = await Dishes.findOne({
+            where: { dish_id: dish_id },
+          });
+          if (dishPresent) {
+            const newDish = {
+              order_id: order.order_id,
+              dish_id: dish_id,
+              quantity: quantity,
+            };
+            await DishesOrdered.create(newDish);
+          } else {
+            console.log("dish not present. Connot add order");
+            DishesOrdered.destroy({ where: { order_id: order_id } });
+            order.destroy();
+            throw "Invalid dishes";
+          }
         }
+        res.status(201).send({ message: "Order Placed !", order: order });
+      } catch (err) {
+        res.status(401).send({ message: err });
       }
-      res.status(201).send({ message: "Order Placed !", order: order });
     } catch (err) {
-      res.status(401).send({ message: "Invalid order details" });
+      res.status(401).send({ message: err });
     }
   })
 );

@@ -8,6 +8,7 @@ import "../node_modules/bootstrap/dist/js/bootstrap.bundle";
 import "../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js";
 import Signup from "./screens/Signup";
 import { OrderProvider } from "./components/ContextReducer";
+import Cart from "./screens/Cart.js";
 import MyOrders from "./screens/MyOrders";
 // import '../node_modules/bootstrap-dark-5/dist/css'
 function App() {
@@ -19,7 +20,8 @@ function App() {
             <Route exact path="/" element={<Home />} />
             <Route exact path="/login" element={<Login />} />
             <Route exact path="/signup" element={<Signup />} />
-            <Route exact path="/MyOrders" element={<MyOrders />} />
+            <Route exact path="/cart" element={<Cart />} />
+            <Route exact path="/myOrder" element={<MyOrders />} />
           </Routes>
         </div>
       </Router>

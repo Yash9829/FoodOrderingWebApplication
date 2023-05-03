@@ -1,60 +1,83 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { useDispatchOrder, useOrder } from '../components/ContextReducer'
-import { useNavigate } from 'react-router-dom';
+import { React, useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useDispatchOrder, useOrder } from "../components/ContextReducer";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 export default function MyOrders() {
-  let data = useOrder();
-  let dispatch = useDispatchOrder();
-  let navigate = useNavigate();
-  let totalPrice = data.reduce((total, food) => parseInt(total) + parseInt(food.quantity) * parseInt(food.price), 0);
-  if (data.length === 0)
-    return (<div style={{margin : '40px', position : 'relative', left : '500px'}}>
-    <Link to = "/" style={{textDecoration : 'none', color : 'black'}}><h1>
-      No Orders!
-    </h1>
-    </Link>
-    </div>)
-  else {
-    return (
+  const navigate = useNavigate();
+  // let dispatch = useDispatchOrder();
+  const [orderData, setorderData] = useState([]);
+  const fetchMyOrder = () => {
+    const token = localStorage.getItem("accessToken");
+    let config = {
+      method: "get",
+      url: "http://localhost:5000/api/orders/",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      params: { _id: "1" },
+    };
+    axios(config)
+      .then((response) => {
+        setorderData(response.data);
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  // let navigate = useNavigate(); let totalPrice = data.reduce( (total, food) => parseInt(total) + parseInt(food.quantity) * parseInt(food.price), 0);
+  useEffect(() => {
+    fetchMyOrder();
+  }, []);
 
-      <div style={{ margin: '50px' }}>
-        <table className="table table-striped table-hover">
-          <thead>
-            <tr>
-              <th scope="col">Order No</th>
-              <th scope="col">Dish Name</th>
-              <th scope="col">Qty</th>
-              <th scope="col">Price</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.map((food, index) => {
-              console.log(food);
-              return (
-                <tr>
-                  <th scope="row">{index + 1}</th>
-                  <td>{food.name}</td>
-                  <td>{food.quantity}</td>
-                  <td>{food.price}</td>
-                  <td><button onClick={() => dispatch({ type: "Delete", index: index, id: food.id })} style={{ backgroundColor: 'red', color: 'white' }}>Remove</button></td>
-                </tr>);
-              {/* <tr>
-              <th scope="row">{index + 1}</th>
-              <td>{food.name}</td>
-              <td>{food.quantity}</td>
-              <td>{food.price}</td>
-            </tr> */}
-
-            })}
-            
-          </tbody>
-        </table>
-        <div style={{display : 'flex', justifyContent : 'flex-end', backgroundColor : 'lightgreen', height : "30px"}}>Total Price = {totalPrice}{" "}Rs</div>
-        <div style={{marginTop : '10px'}}>
-        <button onClick={() => navigate("/")} style={{ backgroundColor: 'red', color: 'white' }}>Go to Home</button>
-        <button onClick={() => navigate("/")} type='submit' style={{ position: 'relative', left: '980px', backgroundColor: 'green', color: 'white' }}>Place Order</button>
+  if (orderData == {}) return "Some error";
+  return (
+    <div>
+      <div style={{ backgroundColor: "lightgrey" }}>
+        <button
+          onClick={() => navigate("/")}
+          style={{
+            backgroundColor: "red",
+            color: "white",
+            justifyContent: "center",
+          }}
+        >
+          Go to Home
+        </button>
+        <div style={{ display: "flex", flexDirection: "row" }}>
+          <h5 className="order-title" style={{ marginLeft: "20px" }}></h5>
+          <table className="table table-striped table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Order Id</th>
+                <th scope="col">Dish Id</th>
+                <th scope="col">Dish Name</th>
+                <th scope="col">Delivery Address</th>
+                <th scope="col">Status</th>
+                <th scope="col">Time</th>
+              </tr>
+            </thead>
+            <tbody>
+              {orderData.map((order, index) => {
+                return order.DishesOrdereds.map((dish) => {
+                  return (
+                    <tr>
+                      <td> {order.order_id}</td>
+                      <td> {dish.Dish.dish_id}</td>
+                      <td> {dish.Dish.dish_name}</td>
+                      <td>{order.delivery_address}</td>
+                      <td>{order.order_status}</td>
+                      <td>{order.order_time}</td>
+                    </tr>
+                  );
+                });
+              })}
+            </tbody>
+          </table>
         </div>
       </div>
-    )
-  }
+    </div>
+  );
 }

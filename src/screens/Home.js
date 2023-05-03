@@ -13,8 +13,8 @@ export default function Home() {
         <Carousal />
       </div>
       <div style={{ display: "flex", flexDirection: "row" }}>
-        <Card id="1" price="100" dishName="Pizza" />
-        <Card id="2" price="300" dishName="Biriyani" />
+        <Card dish_id="1" price="100" dishName="Pizza" />
+        <Card dish_id="2" price="300" dishName="Biriyani" />
       </div>
       <div style={{ backgroundColor: "white" }}>
         <Footer />
