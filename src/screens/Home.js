@@ -5,10 +5,13 @@ import Card from "../components/Card";
 import Carousal from "../components/Carousal";
 // import axios from "axios";
 
+const categories = ["Biryani", "Drink", "Curry", "Bread"];
+
 export default function Home() {
-  const [foodCat, setFoodCat] = useState([]);
+  const [foodCat, setFoodCat] = useState('Any');
   const [foodItem, setFoodItem] = useState([]);
   const url = "http://localhost:5000/api/dishes";
+  const arr = ['Any', 'Biryani', 'Drink', 'Curry', 'Bread']
 
   const loadData = async () => {
     // axios
@@ -25,17 +28,31 @@ export default function Home() {
     //   .catch((err) => {
     //     console.log(err);
     //   });
-    let response = await fetch(url, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    let response;
+    console.log(foodCat);
+    console.log("hello");
+    if (foodCat === 'Any') {
+      response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+    } else {
+      response = await fetch(`${url}/?category=${foodCat}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+    }
     response = await response.json();
     // console.log("hello");
+    response.sort((a, b) => a.category.localeCompare(b.category))
     response.forEach((dish) => {
       console.log(dish);
     });
+
     setFoodItem(response);
     // console.log(response);
     // console.log(response[0], response[1]);
@@ -46,9 +63,11 @@ export default function Home() {
   // console.log("hello");
   useEffect(() => {
     loadData();
-  }, []);
+  }, [foodCat]);
+
 
   return (
+
     <div style={{ backgroundColor: "lightgrey" }}>
       <div>
         <Navbar />
@@ -56,12 +75,27 @@ export default function Home() {
       <div>
         <Carousal />
       </div>
-      <div style={{ display: "flex", flexDirection: "row" }}>
+      <div style={{ position: 'relative', left: '130px', marginTop: '15px' }}><h6>Select Category</h6></div>
+      <div style={{ position: 'relative', left: '130px', height: '50px', marginTop: '10px' }}>
+        <select style={{ height: '50px', width: '100px' }} onChange={(e) => { setFoodCat(e.target.value) }}>
+          {arr.map((cat) => <option value={cat} key={cat} >{cat}</option>)}
+        </select>
+      </div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          width: "1500px",
+          flexDirection: "row",
+          flexWrap: "wrap",
+        }}
+      >
         {foodItem.map((item) => (
           <Card
             id={item.dish_id}
             price={item.dish_price}
             dishName={item.dish_name}
+            imgUrl={item.image_url}
           />
         ))}
         {/* <Card /> */}
@@ -71,6 +105,6 @@ export default function Home() {
       <div style={{ backgroundColor: "white" }}>
         <Footer />
       </div>
-    </div>
+    </div >
   );
 }

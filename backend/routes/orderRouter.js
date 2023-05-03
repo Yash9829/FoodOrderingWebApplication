@@ -26,7 +26,7 @@ orderRouter.get(
   isAuth,
   expressAsyncHandler(async (req, res) => {
     const orders = await Orders.findAll({
-      where: { account_id: req.body._id },
+      where: { account_id: req.query._id },
       include: [
         {
           model: DishesOrdered,
