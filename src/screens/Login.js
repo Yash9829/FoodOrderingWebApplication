@@ -29,7 +29,11 @@ export default function Login() {
           console.log("Succesful login");
           console.log(res);
           localStorage.setItem("accessToken", res.data.token);
-          navigate("/");
+          navigate("/", {
+            state: {
+              val: true,
+            },
+          });
         }
       });
   };
