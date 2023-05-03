@@ -49,7 +49,7 @@ app.use((err, req, res, next) => {
 app.listen(PORT, async () => {
   console.log(`Server up on http://localhost:${PORT}`);
   // await sequelize.sync({ alter: true });
-  // await sequelize.sync({ force: true });
-  await sequelize.authenticate();
+  await sequelize.sync({ force: true });
+  // await sequelize.authenticate();
   console.log("Database connected!");
 });

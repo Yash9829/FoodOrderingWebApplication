@@ -1,6 +1,6 @@
-
 import './App.css';
 // import Navbar from './components/Navbar';
+import axios from "axios";
 import Home from './screens/Home';
 import Login from './screens/Login';
 import {BrowserRouter as Router, Routes, Route, Link} from "react-router-dom";
