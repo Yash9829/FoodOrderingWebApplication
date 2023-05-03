@@ -9,6 +9,7 @@ export default function MyOrders() {
   const [orderData, setorderData] = useState([]);
   const fetchMyOrder = () => {
     const token = localStorage.getItem("accessToken");
+    const user_id = localStorage.getItem("user");
     let config = {
       method: "get",
       url: "http://localhost:5000/api/orders/",
@@ -16,7 +17,7 @@ export default function MyOrders() {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
-      params: { _id: "1" },
+      params: { _id: user_id },
     };
     axios(config)
       .then((response) => {

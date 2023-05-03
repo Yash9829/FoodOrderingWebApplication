@@ -108,7 +108,7 @@ export default function Home() {
       >
         {foodItem.map((item) => (
           <Card
-            id={item.dish_id}
+            dish_id={item.dish_id}
             price={item.dish_price}
             dishName={item.dish_name}
             imgUrl={item.image_url}

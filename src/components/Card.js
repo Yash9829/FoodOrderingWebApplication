@@ -13,6 +13,7 @@ export default function Card(props) {
   const handleAddOrders = async () => {
     await dispatch({
       type: "Add",
+      dish_id: props.dish_id,
       quantity: qty,
       imgUrl: props.imageUrl,
       price: props.price,
@@ -30,7 +31,7 @@ export default function Card(props) {
           src={props.imgUrl}
           className="card-img-top"
           alt="..."
-          style={{ height: "120px", objectFit: "fill" }}
+          style={{ height: "120px", objectFit: "cover" }}
         />
         <div className="card-body">
           <h5 className="card-title" style={{ marginLeft: "20px" }}>

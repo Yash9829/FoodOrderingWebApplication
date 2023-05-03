@@ -9,9 +9,10 @@ export default function Cart() {
   let navigate = useNavigate();
   const placeOrder = () => {
     const token = localStorage.getItem("accessToken");
+    const user_id = localStorage.getItem("user");
     let order = {
       delivery_address: "Home",
-      _id: 1,
+      _id: user_id,
       notes: "None",
       orderItems: data,
     };
@@ -49,7 +50,7 @@ export default function Cart() {
         <table className="table table-striped table-hover">
           <thead>
             <tr>
-              <th scope="col">Order No</th>
+              <th scope="col">Item No</th>
               <th scope="col">Dish Name</th>
               <th scope="col">Qty</th>
               <th scope="col">Price</th>

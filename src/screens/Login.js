@@ -9,6 +9,10 @@ export default function Login() {
     setcredentials({ ...credentials, [event.target.name]: event.target.value });
     console.log("hi");
   };
+  const handleClick = (e) => {
+    e.preventDefault();
+    navigate("/signup");
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     const url = "http://localhost:5000/api/users/signin";
@@ -27,8 +31,9 @@ export default function Login() {
         if (res.data.error) alert(res.data.error);
         else {
           console.log("Succesful login");
-          console.log(res);
+          console.log(res.data);
           localStorage.setItem("accessToken", res.data.token);
+          localStorage.setItem("user", res.data.id);
           navigate("/", {
             state: {
               val: true,
@@ -90,9 +95,18 @@ export default function Login() {
               onChange={onChange}
             />
           </div>
-          <button type="submit" className="btn btn-primary">
-            Login
-          </button>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <button type="submit" className="btn btn-primary">
+              Login
+            </button>
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={handleClick}
+            >
+              New User
+            </button>
+          </div>
         </form>
       </div>
     </div>

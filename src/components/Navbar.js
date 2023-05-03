@@ -17,6 +17,7 @@ function Navbar() {
   let data = useOrder();
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
+    localStorage.removeItem("user");
     navigate("/login");
   };
   return (

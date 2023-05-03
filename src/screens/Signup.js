@@ -108,10 +108,16 @@ export default function Signup() {
               onChange={onChange}
             />
           </div>
-          <button type="submit" className="btn btn-primary">
-            SignUp
-          </button>
-          <Link to="/"></Link>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <button type="submit" className="btn btn-primary">
+              SignUp
+            </button>
+            <Link to="/">
+              <button type="button" className="btn btn-primary">
+                Home
+              </button>
+            </Link>
+          </div>
         </form>
       </div>
     </div>
