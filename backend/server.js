@@ -28,13 +28,13 @@ app.use("/api/orders", orderRouter);
 //Serve static assests if in production
 
 //----------------------------------------------------
-app.use(express.static(path.join(__dirname, "../build")));
-if (process.env.NODE_ENV === "production") {
-  //set a static folder
-  app.get("/", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "..", "build", "index.html"));
-  });
-}
+// app.use(express.static(path.join(__dirname, "../build")));
+// if (process.env.NODE_ENV === "production") {
+//   //set a static folder
+//   app.get("/", (req, res) => {
+//     res.sendFile(path.resolve(__dirname, "..", "build", "index.html"));
+//   });
+// }
 
 // -----------------------------------------------------
 app.use((err, req, res, next) => {

@@ -6,18 +6,18 @@ export default function Card(props) {
   let data = useOrder();
   let [qty, setQty] = useState(1);
   let itemPrice = props.price * qty;
+  let src = props.image_url;
   var [bgColor, changeBackground] = useState("green");
 
   let dispatch = useDispatchOrder();
   const handleAddOrders = async () => {
     await dispatch({
       type: "Add",
-      dish_id: props.dish_id,
       quantity: qty,
+      imgUrl: props.imageUrl,
       price: props.price,
       name: props.dishName,
     });
-    // console.log(data);
   };
 
   return (
@@ -27,7 +27,7 @@ export default function Card(props) {
         style={{ width: "18rem", maxHeight: "360px" }}
       >
         <img
-          src="https://media.istockphoto.com/id/1459715799/photo/pizza-with-ham-and-cheese.jpg?s=612x612&w=is&k=20&c=VjwEtwH2XJ9RG7ed1eypr7STh2KEM7ySeS5TvMOvnfg="
+          src={props.imgUrl}
           className="card-img-top"
           alt="..."
           style={{ height: "120px", objectFit: "fill" }}
@@ -56,7 +56,7 @@ export default function Card(props) {
                 <option value = "full">full</option>
               </select> */}
 
-            <div className="d-inline h-100 fs-5">
+            <div className="d-block h-100 fs-5">
               Total Price = {itemPrice}Rs
             </div>
 
@@ -72,7 +72,7 @@ export default function Card(props) {
               onMouseEnter={() => changeBackground((bgColor = "#33cc00"))}
               onMouseLeave={() => changeBackground((bgColor = "green"))}
             >
-              ADD To MyOrders
+              ADD to MyCart
             </button>
           </div>
         </div>
