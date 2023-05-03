@@ -3,11 +3,12 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import Badge from 'react-bootstrap/Badge'
 import { useOrder } from './ContextReducer';
+
 function Navbar() {
-  var [txtColor1, setColor1] = useState('black');
-  var [txtColor2, setColor2] = useState('black');
-  var [txtColor3, setColor3] = useState('black');
-  var [txtColor4, setColor4] = useState('grey');
+  var [txtColor1, setColor1] = useState("black");
+  var [txtColor2, setColor2] = useState("black");
+  var [txtColor3, setColor3] = useState("black");
+  var [txtColor4, setColor4] = useState("grey");
   var [isLoggedIn, setLogin] = useState(true);
   let data = useOrder();
   return (
@@ -29,14 +30,24 @@ function Navbar() {
           >
             <span className="navbar-toggler-icon"></span>
           </button>
-          <div className="collapse navbar-collapse" id="navbarNav" style={{ display: 'flex', justifyContent: 'flex-end' }}>
+          <div
+            className="collapse navbar-collapse"
+            id="navbarNav"
+            style={{ display: "flex", justifyContent: "flex-end" }}
+          >
             <div className="navbar-nav">
-
-
-              {
-                (!isLoggedIn) ? <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>
+              {!isLoggedIn ? (
+                <div style={{ display: "flex", flexDirection: "row-reverse" }}>
                   <div className="nav-item">
-                    <Link onMouseEnter={() => setColor1(txtColor1 = 'blue')} onMouseLeave={() => setColor1(txtColor1 = 'black')} className="nav-link" to="/login" style={{ color: `${txtColor1}` }}>Login</Link>
+                    <Link
+                      onMouseEnter={() => setColor1((txtColor1 = "blue"))}
+                      onMouseLeave={() => setColor1((txtColor1 = "black"))}
+                      className="nav-link"
+                      to="/login"
+                      style={{ color: `${txtColor1}` }}
+                    >
+                      Login
+                    </Link>
                   </div>
                   <Link onMouseEnter={() => setColor2('green')}
                     onMouseLeave={() => setColor2('black')}
@@ -45,13 +56,21 @@ function Navbar() {
                   <div style={{ display: 'flex', textAlign: 'center', marginRight: '20px' }}>
                     <Link onMouseEnter={() => setColor3(txtColor1 = 'red')} onMouseLeave={() => setColor3(txtColor3 = 'black')} className="nav-link" to="/MyOrders" style={{ color: `${txtColor3}` }}>MyOrders</Link>
                     <Badge pill bg='danger' style={{ marginTop: '10px', marginBottom: '10px' }}>{data.length}</Badge>
+
                   </div>
                   <div>
-                    <button style={{ border: '0px', backgroundColor: `${txtColor4}` }} onMouseEnter={() => setColor4(txtColor4 = 'red')} onMouseLeave={() => setColor4(txtColor4 = 'grey')} className="nav-link" to="/login" >Logout</button>
+                    <button
+                      style={{ border: "0px", backgroundColor: `${txtColor4}` }}
+                      onMouseEnter={() => setColor4((txtColor4 = "red"))}
+                      onMouseLeave={() => setColor4((txtColor4 = "grey"))}
+                      className="nav-link"
+                      to="/login"
+                    >
+                      Logout
+                    </button>
                   </div>
                 </div>
-              }
-
+              )}
             </div>
           </div>
         </div>

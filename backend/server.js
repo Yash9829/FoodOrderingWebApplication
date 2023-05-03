@@ -28,13 +28,13 @@ app.use("/api/orders", orderRouter);
 //Serve static assests if in production
 
 //----------------------------------------------------
-app.use(express.static(path.join(__dirname, "../build")));
-if (process.env.NODE_ENV === "production") {
-  //set a static folder
-  app.get("/", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "..", "build", "index.html"));
-  });
-}
+// app.use(express.static(path.join(__dirname, "../build")));
+// if (process.env.NODE_ENV === "production") {
+//   //set a static folder
+//   app.get("/", (req, res) => {
+//     res.sendFile(path.resolve(__dirname, "..", "build", "index.html"));
+//   });
+// }
 
 // -----------------------------------------------------
 app.use((err, req, res, next) => {
@@ -48,8 +48,8 @@ app.use((err, req, res, next) => {
 
 app.listen(PORT, async () => {
   console.log(`Server up on http://localhost:${PORT}`);
-  // await sequelize.sync({ alter: true });
-  await sequelize.sync({ force: true });
+  await sequelize.sync({ alter: true });
+  // await sequelize.sync({ force: true });
   // await sequelize.authenticate();
   console.log("Database connected!");
 });
