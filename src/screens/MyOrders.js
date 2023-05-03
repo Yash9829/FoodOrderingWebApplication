@@ -1,12 +1,12 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { useOrder } from '../components/ContextReducer'
+import React from "react";
+import { Link } from "react-router-dom";
+import { useOrder } from "../components/ContextReducer";
 
 export default function MyOrders() {
   let data = useOrder();
   return (
-    <div style={{margin : '50px'}}>
-      <table class = "table table-striped table-hover">
+    <div style={{ margin: "50px" }}>
+      <table class="table table-striped table-hover">
         <thead>
           <tr>
             <th scope="col">Order No</th>
@@ -24,8 +24,24 @@ export default function MyOrders() {
           </tr>
         </tbody>
       </table>
-      <Link to = "/"><button style = {{backgroundColor : 'red', color : 'white'}}>Go to Home</button></Link>
-      <Link to = "/"><button type='submit' style={{position : 'relative', left : '980px', backgroundColor : 'green', color : 'white'}}>Place Order</button></Link>
+      <Link to="/">
+        <button style={{ backgroundColor: "red", color: "white" }}>
+          Go to Home
+        </button>
+      </Link>
+      <Link to="/">
+        <button
+          type="submit"
+          style={{
+            position: "relative",
+            left: "980px",
+            backgroundColor: "green",
+            color: "white",
+          }}
+        >
+          Place Order
+        </button>
+      </Link>
     </div>
-  )
+  );
 }
