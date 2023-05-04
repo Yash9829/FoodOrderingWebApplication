@@ -60,7 +60,7 @@ export default function Login() {
         <h4
           style={{ color: "black", textAlign: "center", marginBottom: "20px" }}
         >
-          Welcome to MyFoods
+          Welcome to MYAB's
         </h4>
         <h6
           style={{ color: "black", textAlign: "center", marginBottom: "20px" }}
@@ -70,7 +70,7 @@ export default function Login() {
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
             <label htmlFor="exampleInputEmail1" className="form-label">
-              Enter username
+              Enter your email id
             </label>
             <input
               type="email"

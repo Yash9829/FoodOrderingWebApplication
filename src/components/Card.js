@@ -73,7 +73,7 @@ export default function Card(props) {
               onMouseEnter={() => changeBackground((bgColor = "#33cc00"))}
               onMouseLeave={() => changeBackground((bgColor = "green"))}
             >
-              ADD to MyCart
+              Add to MyCart
             </button>
           </div>
         </div>

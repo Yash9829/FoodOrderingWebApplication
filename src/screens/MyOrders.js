@@ -55,7 +55,7 @@ export default function MyOrders() {
                 <th scope="col">Order Id</th>
                 <th scope="col">Dish Id</th>
                 <th scope="col">Dish Name</th>
-                <th scope="col">Delivery Address</th>
+
                 <th scope="col">Status</th>
                 <th scope="col">Time</th>
               </tr>
@@ -68,7 +68,7 @@ export default function MyOrders() {
                       <td> {order.order_id}</td>
                       <td> {dish.Dish.dish_id}</td>
                       <td> {dish.Dish.dish_name}</td>
-                      <td>{order.delivery_address}</td>
+
                       <td>{order.order_status}</td>
                       <td>{order.order_time}</td>
                     </tr>

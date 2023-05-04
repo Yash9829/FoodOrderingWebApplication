@@ -54,6 +54,7 @@ userRouter.post(
         res
           .status(401)
           .send({ message: "Password should have minimum 8 characters" });
+        return;
       }
       const newUser = {
         customer_name: req.body.customer_name,
