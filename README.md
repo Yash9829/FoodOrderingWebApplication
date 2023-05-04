@@ -1,5 +1,59 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
+``` .
+├── backend
+│   ├── config
+│   │   └── config.json
+│   ├── data.js
+│   ├── models
+│   │   ├── account.js
+│   │   ├── dishes.js
+│   │   ├── dish_ordered.js
+│   │   ├── index.js
+│   │   └── orders.js
+│   ├── package.json
+│   ├── package-lock.json
+│   ├── README.md
+│   ├── routes
+│   │   ├── dishesRouter.js
+│   │   ├── orderRouter.js
+│   │   └── userRouter.js
+│   ├── server.js
+│   └── utils
+│       ├── db.js
+│       └── utils.js
+├── package.json
+├── package-lock.json
+├── public
+│   ├── index.html
+│   ├── manifest.json
+│   └── robots.txt
+├── README.md
+└── src
+    ├── App.css
+    ├── App.js
+    ├── App.test.js
+    ├── assets
+    │   ├── attributes
+    │   ├── bigsandwich.jpeg
+    │   └── vietnam.jpeg
+    ├── components
+    │   ├── Card.js
+    │   ├── Carousal.js
+    │   ├── ContextReducer.js
+    │   ├── Footer.js
+    │   └── Navbar.js
+    ├── index.css
+    ├── index.js
+    ├── reportWebVitals.js
+    ├── screens
+    │   ├── Cart.js
+    │   ├── Home.js
+    │   ├── Login.js
+    │   ├── MyOrders.js
+    │   └── Signup.js
+    └── setupTests.js 
+```
+    
 
 ## Available Scripts
 
