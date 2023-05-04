@@ -24,7 +24,7 @@ const isAuth = (req, res, next) => {
       if (err) {
         res.status(401).send({ message: err.message });
       } else {
-        req.user = decode;
+        req.body = decode;
         next();
       }
     });

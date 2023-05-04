@@ -1,6 +1,6 @@
 import React from "react";
 // import bigsandwich from './assets/bigsandwich.jpeg';
-import image1 from "./images";
+// import image1 from "./images";
 export default function Carousal() {
   return (
     <div>
