@@ -1,5 +1,6 @@
 import React from "react";
-
+// import bigsandwich from './assets/bigsandwich.jpeg';
+// import image1 from "./images";
 export default function Carousal() {
   return (
     <div>
@@ -21,10 +22,10 @@ export default function Carousal() {
           </div>
           <div className="carousel-item active" style={{ objectFit: "fill" }}>
             <img
-              src="https://img.freepik.com/premium-photo/chicken-dhum-biriyani-using-jeera-rice-spices-arranged-earthen-ware_527904-513.jpg"
+              src="https://img.freepik.com/free-photo/traditional-indian-soup-lentils-indian-dhal-spicy-curry-bowl-spices-herbs-rustic-black-wooden-table_2829-18717.jpg?w=1380&t=st=1683165497~exp=1683166097~hmac=4cd27b8afdec39e71a432b8d5b67bc4887e29825a98ba681ba2a0c2e298dfe4b"
               className="d-block w-100"
               alt="..."
-              style={{ objectFit: "fit" }}
+              style={{ objectFit: "fill" }}
             />
           </div>
           <div className="carousel-item">
@@ -37,10 +38,10 @@ export default function Carousal() {
           </div>
           <div className="carousel-item">
             <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIH7Fv-9r0NQn2S8tLW7UHK0LTX6WnB6o8UIJfRtog_A&s"
+              src="https://img.freepik.com/free-photo/penne-pasta-tomato-sauce-with-chicken-tomatoes-wooden-table_2829-19744.jpg?w=1380&t=st=1683165577~exp=1683166177~hmac=8cb8ebbf1080b2eaa7f781bc30f588a9e33eb06a2da7777bf5edf5f43037c40b"
               className="d-block w-100"
               alt="..."
-              style={{ objectFit: "fit" }}
+              style={{ objectFit: "fill" }}
             />
           </div>
         </div>

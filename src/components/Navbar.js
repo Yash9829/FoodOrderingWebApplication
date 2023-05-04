@@ -112,7 +112,7 @@ function Navbar() {
                         to="/myOrder"
                         style={{ color: `${txtColor1}` }}
                       >
-                        MyOrder
+                        MyOrders
                       </Link>
                     </div>
                   </div>

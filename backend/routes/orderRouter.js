@@ -1,25 +1,9 @@
 const express = require("express");
 const expressAsyncHandler = require("express-async-handler");
-// import nodemailer from "nodemailer";
-// import { google } from "googleapis";
 const { Orders, DishesOrdered, Dishes } = require("../models");
 const { isAuth } = require("../utils/utils.js");
 
 const orderRouter = express.Router();
-
-// const CLIENT_ID =
-//   "836515059620-e8mgv5flipan48tco2u1q2ruamhuuv9s.apps.googleusercontent.com";
-// const CLIENT_SECRET = "AMSboUAwW8vRD7Z9D9Q8jugt";
-// const REDIRECT_URI = "https://developers.google.com/oauthplayground";
-// const REFRESH_TOKEN =
-//   "1//04iEaw-1-p7GwCgYIARAAGAQSNwF-L9IrNtEOQTyih2HkjpsSzX1TzWR0h1_ntRZVbVEZJZiAaKMSLf_551fVCd9d-wXtgv5_MbU";
-
-// const oAuth2Client = new google.auth.OAuth2(
-//   CLIENT_ID,
-//   CLIENT_SECRET,
-//   REDIRECT_URI
-// );
-// oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
 
 orderRouter.get(
   "/",
@@ -46,11 +30,6 @@ orderRouter.get(
   "/admin-orders",
   isAuth,
   expressAsyncHandler(async (req, res) => {
-    // const orders = await Orders.findAll({
-    //   order: [["order_time", "DESC"]],
-    //   include: "DishesOrdered",
-    //   limit: 100,
-    // });
     const orders = await Orders.findAll({
       order: [["order_time", "DESC"]],
       include: [
@@ -114,6 +93,72 @@ orderRouter.post(
       }
     } catch (err) {
       res.status(401).send({ message: err });
+    }
+  })
+);
+
+orderRouter.put(
+  "/update-dish_ordered-status",
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const dish = await DishesOrdered.findOne({
+      where: { order_id: req.body.order_id, dish_id: req.body.dish_id },
+    });
+    if (dish) {
+      dish.dish_status = req.body.dish_status;
+      const updatedDish = await dish.save();
+      res.send(updatedDish);
+    } else {
+      res.status(404).send({ message: "Item in order not found" });
+    }
+  })
+);
+
+orderRouter.delete(
+  "/delete-dish_ordered",
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const dish = await DishesOrdered.findOne({
+      where: { order_id: req.body.order_id, dish_id: req.body.dish_id },
+    });
+    if (dish) {
+      await dish.destroy();
+      res.send({ message: "Item in order deleted" });
+    } else {
+      res.status(404).send({ message: "Item in order not found" });
+    }
+  })
+);
+
+orderRouter.put(
+  "/update-order-status",
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const order = await Orders.findOne({
+      where: { order_id: req.body.order_id },
+    });
+    if (order) {
+      order.order_status = req.body.order_status;
+      const updatedOrder = await order.save();
+      res.send(updatedOrder);
+    } else {
+      res.status(404).send({ message: "Order not found" });
+    }
+  })
+);
+
+orderRouter.delete(
+  "/delete-order",
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const order = await Orders.findOne({
+      where: { order_id: req.body.order_id, account_id: req.body.account_id },
+    });
+    if (order) {
+      await order.destroy();
+      res.send({ message: "Order deleted" });
+    } else {
+      res.status(404).send({ message: "Order not found" });
     }
   })
 );

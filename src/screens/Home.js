@@ -73,29 +73,31 @@ export default function Home() {
       <div>
         <Carousal />
       </div>
-      <div style={{ position: "relative", left: "130px", marginTop: "15px" }}>
-        <h6>Select Category</h6>
-      </div>
-      <div
-        style={{
-          position: "relative",
-          left: "130px",
-          height: "50px",
-          marginTop: "10px",
-        }}
-      >
-        <select
-          style={{ height: "50px", width: "100px" }}
-          onChange={(e) => {
-            setFoodCat(e.target.value);
+      <div style={{ display: 'flex', height: '80px', alignItems: 'center' }}>
+        <div style={{ position: "relative", left: "130px", marginTop: "15px" }}>
+          <h4>Select Category of food : </h4>
+        </div>
+        <div
+          style={{
+            position: "relative",
+            left: "130px",
+            height: "40px",
+            marginLeft: "10px"
           }}
         >
-          {arr.map((cat) => (
-            <option value={cat} key={cat}>
-              {cat}
-            </option>
-          ))}
-        </select>
+          <select
+            style={{ height: "50px", width: "100px" }}
+            onChange={(e) => {
+              setFoodCat(e.target.value);
+            }}
+          >
+            {arr.map((cat) => (
+              <option value={cat} key={cat}>
+                {cat}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
       <div
         style={{

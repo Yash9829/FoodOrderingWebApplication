@@ -1,9 +1,3 @@
-// import express from "express";
-// import expressAsyncHandler from "express-async-handler";
-// import data from "../data.js";
-// import Dishes from "../models/products.js";
-// import Wishlist from "../models/wishlist.js";
-
 const express = require("express");
 const expressAsyncHandler = require("express-async-handler");
 const Sequelize = require("sequelize");
@@ -43,29 +37,6 @@ dishesRouter.get(
   })
 );
 
-// productRouter.post(
-//   "/wishlist",
-//   isAuth,
-//   expressAsyncHandler(async (req, res) => {
-//     const item = await Wishlist.findOne({ product: req.body._id });
-//     if (item) {
-//       res.status(409).send({ message: "Item Already exits" });
-//     } else {
-//       const newItem = new Wishlist({
-//         name: req.body.name,
-//         image: req.body.image,
-//         price: req.body.price,
-//         rating: req.body.rating,
-//         description: req.body.description,
-//         userId: req.user._id,
-//         product: req.body._id,
-//       });
-//       const wishlistItem = await newItem.save();
-//       res.send(wishlistItem);
-//     }
-//   })
-// );
-
 dishesRouter.put(
   "/update-dish",
   expressAsyncHandler(async (req, res) => {
@@ -93,8 +64,6 @@ dishesRouter.put(
     } else {
       res.status(404).send({ message: "Dish not found" });
     }
-    const newDish = {};
-    res.send(dish);
   })
 );
 
@@ -128,22 +97,6 @@ dishesRouter.delete(
     }
   })
 );
-// productRouter.get(
-//   "/wishlist",
-//   isAuth,
-//   expressAsyncHandler(async (req, res) => {
-//     const items = await Wishlist.find({ userId: req.user._id });
-//     res.send(items);
-//   })
-// );
-// productRouter.delete(
-//   "/wishlist/:id",
-//   isAuth,
-//   expressAsyncHandler(async (req, res) => {
-//     const items = await Wishlist.deleteOne({ productId: req.params.id });
-//     res.send(req.params.id);
-//   })
-// );
 
 dishesRouter.get(
   "/seed",

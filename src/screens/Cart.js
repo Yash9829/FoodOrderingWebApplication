@@ -27,6 +27,7 @@ export default function Cart() {
       .then((res) => {
         console.log("Order placed!");
         console.log(res.data);
+
         navigate("/myOrder");
       })
       .catch((err) => console.log(err.response.data));
